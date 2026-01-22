@@ -1,0 +1,106 @@
+=================================================================== GENERATIVE AI PROJECT - PROMPT ENGINEERING LOG Student: Muhammad Abdurrahman Khan
+
+PROMPT 1: RAG GENERATION PROMPT (Zephyr-7B Optimized)
+
+TYPE: ChatML Structured Prompt
+GOAL: To force the LLM to act as a structured Teaching Assistant and generate a time-aware study schedule grounded in retrieved context.
+
+You are an AI Study Planning Assistant. Create a detailed study schedule based strictly on the context.
+</s>
+<|user|>
+Create a {question} study plan.
+
+Use ONLY these course materials:
+{context}
+
+Requirements:
+
+Break down into daily schedule (Day 1, Day 2...)
+
+Reference specific materials (Lecture names, PDF pages)
+
+Include time estimates
+
+List key concepts for each block
+
+Generate the complete plan:
+</s>
+<|assistant|>
+
+[RATIONALE]:
+
+Role Definition ("AI Study Planning Assistant"): Sets the persona for formal, structured output.
+
+Context Constraint ("Use ONLY these course materials"): Critical for RAG to prevent hallucination.
+
+Explicit Requirements: The bullet points force the model to include specific structural elements (Daily breakdown, Citations, Time estimates) which generic models often skip.
+
+ChatML Tokens (<https://www.google.com/search?q=%7Csystem%7C>, <|user|>): Used specifically for the Zephyr-7B model to align with its instruction-tuning format, improving adherence to instructions.
+
+PROMPT 2: CPU-OPTIMIZED PROMPT (Qwen-1.5B)
+
+TYPE: Token-Efficient Prompt
+GOAL: To generate a coherent plan on low-resource hardware without running out of tokens.
+
+PROMPT TEXT:
+<|im_start|>system
+You are a concise AI Study Assistant. Create a structured schedule based on the context.
+<|im_end|>
+<|im_start|>user
+Create a {question} study plan.
+
+CONTEXT:
+{context}
+
+INSTRUCTIONS:
+
+Use a Bullet Point list format (Do not use tables, they waste space).
+
+Break down by Day (Day 1, Day 2...).
+
+Cite specific lectures/PDFs.
+<|im_end|>
+<|im_start|>assistant
+
+[RATIONALE]:
+
+Removal of Table Requirement: Tables consume excessive tokens for formatting characters. Removing them allows the smaller model to generate more content within the token limit.
+
+"Concise" Instruction: Encourages brevity to ensure the model completes the plan before hitting the context window limit.
+
+PROMPT 3: BASELINE COMPARISON PROMPT
+
+TYPE: Control Prompt
+GOAL: To evaluate the impact of retrieval quality on the same LLM.
+
+PROMPT TEXT:
+(Same structure as Prompt 1, but fed with chunks from the MiniLM-L6-v2 retriever instead of BGE-Base)
+
+[OBSERVATION]:
+Even with the exact same prompt structure, the output degraded significantly when using the Baseline retriever. The model hallucinated clarification questions instead of providing a plan, proving that the RAG performance is bound by retrieval quality, not just prompt engineering.
+
+-------------------------------------------------------------------
+PROMPT 4: TECHNICAL CONCEPT QUERY (Vector Databases)
+-------------------------------------------------------------------
+TYPE: Conceptual Explanation Prompt
+GOAL: To test the system's ability to explain the underlying infrastructure (ChromaDB/Embeddings) using the course materials.
+
+[PROMPT TEXT]:
+<|im_start|>system
+You are a technical AI Assistant. Explain the concept clearly.
+<|im_end|>
+<|im_start|>user
+How do vector databases and embeddings work in this course?
+
+CONTEXT:
+{context}
+
+INSTRUCTIONS:
+1. Explain the role of Vector Stores (like Chroma).
+2. Explain Embeddings (like BGE/MiniLM).
+3. Use simple analogies.
+<|im_end|>
+<|im_start|>assistant
+
+[OBSERVATION]:
+The model successfully retrieved technical details from the "Generative Deep Learning" textbook (Foster) regarding latent spaces and vector representations, rather than giving a generic Wikipedia-style definition.
