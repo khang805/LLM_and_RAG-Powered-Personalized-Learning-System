@@ -41,12 +41,15 @@ pip install -q langchain langchain-community chromadb \
   accelerate bitsandbytes transformers
 
 ### 🛠️ Technical WorkflowIngestion:
-     #### 1. Preprocessing & EmbeddingThe system ingests raw files from Google Drive, performs text cleaning, and utilizes the LangChain framework to split text into semantically meaningful chunks. These are then stored in a Chroma vector database.
-     #### 2. Retrieval & Context InjectionUpon a user query (e.g., "Create a 5-day plan for Transformers"), the system retrieves the top-$k$ relevant snippets. The prompt engineering uses ChatML tokens to maintain strict role adherence.
-     #### 3. Adaptive GenerationThe system detects the available hardware environment. If a T4 GPU is detected, it deploys Zephyr-7B with 4-bit quantization to produce comprehensive schedules including:
-              Daily breakdowns
-              Specific page/slide citations
-              Time estimates per topic
+     # 1. Preprocessing & Embedding:
+                  The system ingests raw files from Google Drive, performs text cleaning, and utilizes the LangChain framework to split text into semantically meaningful chunks. These are then stored in a Chroma vector database.
+     # 2. Retrieval & Context Injection:
+                  Upon a user query (e.g., "Create a 5-day plan for Transformers"), the system retrieves the top-$k$ relevant snippets. The prompt engineering uses ChatML tokens to maintain strict role adherence.
+     # 3. Adaptive Generation:
+                  The system detects the available hardware environment. If a T4 GPU is detected, it deploys Zephyr-7B with 4-bit quantization to produce comprehensive schedules including:
+              1) Daily breakdowns
+              2) Specific page/slide citations
+              3) Time estimates per topic
 
 ### 📊 Performance Metrics
 
