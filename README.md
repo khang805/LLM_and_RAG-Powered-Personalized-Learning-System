@@ -12,7 +12,7 @@ A high-fidelity **Retrieval-Augmented Generation (RAG)** system designed to tran
 * **Adaptive Inference Mechanism:** Hardware-aware switching logic:
     * **GPU Mode:** Deploys **Zephyr-7B** (4-bit quantized) for complex planning and reasoning.
     * **CPU Mode:** Deploys **Qwen-1.5B** for rapid, low-resource summarization.
-* **Zero-Hallucination Guarantee:** Uses strict **ChatML** prompt engineering to ensure the model only references the provided context, achieving a 0.0% hallucination rate.
+* **Zero-Hallucination Guarantee:** Uses strict prompt engineering techniques to ensure the model only references the provided context, achieving a 0.0% hallucination rate.
 
 ---
 
@@ -20,13 +20,13 @@ A high-fidelity **Retrieval-Augmented Generation (RAG)** system designed to tran
 
 ```text
 ├── notebooks
-  ├── 01_Preprocessing.ipynb         # Data extraction from PDFs/PPTXs and cleaning
-  ├── 02_Vector_Store_Creation.ipynb # Chunking strategy and ChromaDB indexing
-  ├── 03_RAG_Generation.ipynb        # Core RAG pipeline and adaptive LLM logic
+  ├── 01_Preprocessing.ipynb          # Data extraction from PDFs/PPTXs and cleaning
+  ├── 02_Vector_Store_Creation.ipynb  # Chunking strategy and ChromaDB indexing
+  ├── 03_RAG_Generation.ipynb         # Core RAG pipeline and adaptive LLM logic
   ├── 04_Evaluation_Study.ipynb       # Quantitative metrics and LaTeX report generation
-├── Prompts.txt                    # Log of optimized ChatML and system prompts
-├── Report.pdf                     # Final technical research paper
-├── Proposal_GenAI.pdf             # Initial project scope and methodology
+├── Prompts.txt                      # Log of optimized ChatML and system prompts
+├── Report.pdf                       # Final technical research paper
+├── Proposal_GenAI.pdf               # Initial project scope and methodology
 ```
 
 ## ⚙️ Installation & Setup
@@ -41,11 +41,11 @@ pip install -q langchain langchain-community chromadb \
   accelerate bitsandbytes transformers
 
 ### 🛠️ Technical WorkflowIngestion:
-     # 1. Preprocessing & Embedding:
+      1. Preprocessing & Embedding:
                   The system ingests raw files from Google Drive, performs text cleaning, and utilizes the LangChain framework to split text into semantically meaningful chunks. These are then stored in a Chroma vector database.
-     # 2. Retrieval & Context Injection:
-                  Upon a user query (e.g., "Create a 5-day plan for Transformers"), the system retrieves the top-$k$ relevant snippets. The prompt engineering uses ChatML tokens to maintain strict role adherence.
-     # 3. Adaptive Generation:
+      2. Retrieval & Context Injection:
+                  Upon a user query (e.g., "Create a 5-day plan for Transformers"), the system retrieves the top-k relevant snippets. The prompt engineering uses ChatML tokens to maintain strict role adherence.
+      3. Adaptive Generation:
                   The system detects the available hardware environment. If a T4 GPU is detected, it deploys Zephyr-7B with 4-bit quantization to produce comprehensive schedules including:
               1) Daily breakdowns
               2) Specific page/slide citations
