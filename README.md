@@ -32,6 +32,7 @@ A high-fidelity **Retrieval-Augmented Generation (RAG)** system designed to tran
 ├── Prompts.txt                    # Log of optimized ChatML and system prompts
 ├── Report.pdf                     # Final technical research paper
 ├── Proposal_GenAI.pdf             # Initial project scope and methodology
+```
 
 ## ⚙️ Installation & Setup
 ### 1. Prerequisites
@@ -49,12 +50,13 @@ pip install -q langchain langchain-community chromadb \
 
 ### 📊 Performance Metrics
 
-Metric	System Result
-Source Grounding	100%
-Hallucination Rate	0.00%
-Avg. Citations per Plan	25
-Time References per Plan	43
-Inference Mode	Adaptive (GPU/CPU)
+| Metric | System Result |
+| :--- | :--- |
+| **Source Grounding** | 100% |
+| **Hallucination Rate** | 0.00% |
+| **Avg. Citations per Plan** | 25 |
+| **Time References per Plan** | 43 |
+| **Inference Mode** | Adaptive (GPU/CPU) |
 
 ## 🎯 Conclusion
 By anchoring the generation in specific course documents, this system provides students with a reliable, structured, and cited roadmap for their studies, eliminating the "ungrounded information" problem common in generic LLMs.
