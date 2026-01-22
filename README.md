@@ -1,11 +1,6 @@
 # Personalized Study Planner: Adaptive RAG System
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
-[![LangChain](https://img.shields.io/badge/Framework-LangChain-green.svg)](https://python.langchain.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 A high-fidelity **Retrieval-Augmented Generation (RAG)** system designed to transform dense university materials (PDFs and PPTXs) into structured, time-aware study schedules. This system features an **Adaptive Inference** mechanism that optimizes performance based on available hardware.
-
 
 ---
 
@@ -46,7 +41,12 @@ pip install -q langchain langchain-community chromadb \
   accelerate bitsandbytes transformers
 
 ### 🛠️ Technical WorkflowIngestion:
-      Parses textbooks and lecture slides, preserving semantic structure while removing noise.Indexing: Utilizes RecursiveCharacterTextSplitter to chunk text and stores embeddings in a Chroma vector database.Generation: Retrieves the top-$k$ relevant chunks and uses a structured prompt to generate a plan including daily breakdowns, specific page/slide citations, and estimated time blocks.
+     #### 1. Preprocessing & EmbeddingThe system ingests raw files from Google Drive, performs text cleaning, and utilizes the LangChain framework to split text into semantically meaningful chunks. These are then stored in a Chroma vector database.
+     #### 2. Retrieval & Context InjectionUpon a user query (e.g., "Create a 5-day plan for Transformers"), the system retrieves the top-$k$ relevant snippets. The prompt engineering uses ChatML tokens to maintain strict role adherence.
+     #### 3. Adaptive GenerationThe system detects the available hardware environment. If a T4 GPU is detected, it deploys Zephyr-7B with 4-bit quantization to produce comprehensive schedules including:
+              Daily breakdowns
+              Specific page/slide citations
+              Time estimates per topic
 
 ### 📊 Performance Metrics
 
@@ -59,5 +59,9 @@ pip install -q langchain langchain-community chromadb \
 | **Inference Mode** | Adaptive (GPU/CPU) |
 
 ## 🎯 Conclusion
-By anchoring the generation in specific course documents, this system provides students with a reliable, structured, and cited roadmap for their studies, eliminating the "ungrounded information" problem common in generic LLMs.
+By anchoring the generation in specific course documents, this system provides students with a reliable, structured, and cited roadmap for their studies. It effectively bridges the gap between static courseware and interactive learning, eliminating the "ungrounded information" problem common in generic LLMs.
+
+## 🎓 Author
+M Abdurrahman Khan National University of Computer and Emerging Sciences (FAST), Pakistan
+Contact: {i221148}@nu.edu.pk
 
